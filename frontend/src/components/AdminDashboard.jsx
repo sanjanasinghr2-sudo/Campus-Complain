@@ -3,7 +3,7 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import { ShieldCheck, MessageSquare } from 'lucide-react';
 
-const SOCKET_URL = 'http://localhost:5000';
+const SOCKET_URL = 'https://campus-complain-1.onrender.com';
 
 const getStatusBadgeClass = (status) => {
     switch(status) {

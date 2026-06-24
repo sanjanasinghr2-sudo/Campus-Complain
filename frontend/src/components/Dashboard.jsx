@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import { io } from 'socket.io-client';
 import { PlusCircle, Clock, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 
-const SOCKET_URL = 'http://localhost:5000';
+const SOCKET_URL = 'https://campus-complain-1.onrender.com';
 
 const getStatusBadgeClass = (status) => {
     switch(status) {
