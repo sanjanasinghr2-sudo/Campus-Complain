@@ -4,7 +4,8 @@ import { AuthContext } from '../context/AuthContext';
 import { io } from 'socket.io-client';
 import { PlusCircle, Clock, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 
-const SOCKET_URL = 'https://campus-complain-1.onrender.com';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://campus-complain-1.onrender.com';
 
 const getStatusBadgeClass = (status) => {
     switch(status) {
@@ -30,7 +31,7 @@ const Dashboard = () => {
         const fetchComplaints = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get('http://localhost:5000/api/complaints', {
+                const res = await axios.get(`${API_URL}/complaints`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setComplaints(res.data);
@@ -57,7 +58,7 @@ const Dashboard = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.post('http://localhost:5000/api/complaints', 
+            const res = await axios.post(`${API_URL}/complaints`, 
                 { title, description, category }, 
                 { headers: { Authorization: `Bearer ${token}` } }
             );

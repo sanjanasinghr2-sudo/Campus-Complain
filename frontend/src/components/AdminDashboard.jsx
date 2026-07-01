@@ -3,7 +3,8 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import { ShieldCheck, MessageSquare } from 'lucide-react';
 
-const SOCKET_URL = 'https://campus-complain-1.onrender.com';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://campus-complain-1.onrender.com';
 
 const getStatusBadgeClass = (status) => {
     switch(status) {
@@ -23,7 +24,7 @@ const AdminDashboard = () => {
         const fetchComplaints = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get('http://localhost:5000/api/complaints', {
+                const res = await axios.get(`${API_URL}/complaints`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setComplaints(res.data);
@@ -49,7 +50,7 @@ const AdminDashboard = () => {
             const adminNotes = prompt(`Add a note for status update to ${status} (Optional):`, '');
             if (adminNotes === null) return; // User cancelled
 
-            const res = await axios.put(`http://localhost:5000/api/complaints/${id}`, 
+            const res = await axios.put(`${API_URL}/complaints/${id}`, 
                 { status, adminNotes },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
